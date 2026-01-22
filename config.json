@@ -1,0 +1,17 @@
+{
+  "site_name": "Enucuz.az — Сравнение цен и услуги в Азербайджане",
+  "whatsapp": "+994501112233",
+  "payment_links": [
+    {
+      "title": "Оплатить заказ (ссылка 1)",
+      "url": "https://example.com/paylink1"
+    },
+    {
+      "title": "Оплатить заказ (ссылка 2)",
+      "url": "https://example.com/paylink2"
+    }
+  ],
+  "legal_notice": "Информация на сайте носит справочный характер. Цены и наличие уточняйте перед оплатой.",
+  "brand": "Enucuz.az",
+  "domain_hint": "enucuz.az"
+}

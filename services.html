@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Услуги</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="nav">
+    <div class="row">
+      <div class="brand">
+        <div class="logo"></div>
+        <div><b>Enucuz.az</b><div class="small">Сравнение цен • товары • услуги</div></div>
+      </div>
+      <div class="menu"><a href="index.html">Главная</a>
+<a href="products.html">Товары</a>
+<a href="services.html" style="background:rgba(255,255,255,.08)">Услуги</a>
+<a href="compare.html">Сравнение</a>
+<a href="contact.html">Оплата/Контакты</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card">
+  <h2 style="margin:0 0 6px">Каталог услуг</h2>
+  <div class="small">«Купить / Заказать» → WhatsApp (можно принимать предоплату по ссылке).</div>
+  <div class="toolbar">
+    <input id="q" class="input" placeholder="Поиск: установка кондиционера, электрик..." />
+    <select id="category"></select>
+    <div class="kpi"><b id="count">0</b><span>услуг</span></div>
+  </div>
+  <div id="list" class="list"></div>
+</div>
+<script>Site.initServices();</script>
+  </div>
+  <div class="footer">© <span id="y"></span> Enucuz.az • <span class="small" id="legal"></span></div>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    fetch('data/config.json').then(r=>r.json()).then(cfg=>{
+      document.title = (document.title||'') + ' — ' + cfg.site_name;
+      const l = document.getElementById('legal'); if(l) l.textContent = cfg.legal_notice || '';
+    });
+  </script>
+</body>
+</html>

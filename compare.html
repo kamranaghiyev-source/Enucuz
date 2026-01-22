@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Сравнение цен</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="nav">
+    <div class="row">
+      <div class="brand">
+        <div class="logo"></div>
+        <div><b>Enucuz.az</b><div class="small">Сравнение цен • товары • услуги</div></div>
+      </div>
+      <div class="menu"><a href="index.html">Главная</a>
+<a href="products.html">Товары</a>
+<a href="services.html">Услуги</a>
+<a href="compare.html" style="background:rgba(255,255,255,.08)">Сравнение</a>
+<a href="contact.html">Оплата/Контакты</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card">
+  <h2 style="margin:0 0 6px">Сравнение цен</h2>
+  <div class="small">Простая версия: таблицы (лучше всего для старта).</div>
+  <div class="notice" style="margin-top:10px">
+    Чтобы добавить позиции: открой <b>data/compare.json</b> и поменяй магазины/цены.
+  </div>
+</div>
+<div id="compare"></div>
+<script>Site.initCompare();</script>
+  </div>
+  <div class="footer">© <span id="y"></span> Enucuz.az • <span class="small" id="legal"></span></div>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    fetch('data/config.json').then(r=>r.json()).then(cfg=>{
+      document.title = (document.title||'') + ' — ' + cfg.site_name;
+      const l = document.getElementById('legal'); if(l) l.textContent = cfg.legal_notice || '';
+    });
+  </script>
+</body>
+</html>

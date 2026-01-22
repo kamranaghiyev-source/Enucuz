@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Оплата и контакты</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="nav">
+    <div class="row">
+      <div class="brand">
+        <div class="logo"></div>
+        <div><b>Enucuz.az</b><div class="small">Сравнение цен • товары • услуги</div></div>
+      </div>
+      <div class="menu"><a href="index.html">Главная</a>
+<a href="products.html">Товары</a>
+<a href="services.html">Услуги</a>
+<a href="compare.html">Сравнение</a>
+<a href="contact.html" style="background:rgba(255,255,255,.08)">Оплата/Контакты</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="grid">
+  <div class="card half">
+    <h2 style="margin:0 0 6px">Оплата</h2>
+    <div class="small">Добавь платёжные ссылки (Payriff/Portmanat) в <b>data/config.json</b>.</div>
+    <ul id="payLinks" style="padding-left:18px"></ul>
+  </div>
+
+  <div class="card half">
+    <h2 style="margin:0 0 6px">Контакты</h2>
+    <div class="small">Принимай заявки через WhatsApp.</div>
+    <div style="margin-top:10px">
+      <a id="waLink" class="btn primary" target="_blank" rel="noopener" href="#">WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin:0 0 8px">Запуск (самое простое)</h3>
+    <ol class="small" style="line-height:1.6">
+      <li>Распакуй архив.</li>
+      <li>Открой <b>data/config.json</b> и вставь свой WhatsApp + платёжные ссылки.</li>
+      <li>Открой Netlify Drop и перетащи папку сайта (в ней должен быть <b>index.html</b>).</li>
+      <li>Сайт сразу будет онлайн.</li>
+    </ol>
+  </div>
+</div>
+<script>Site.initContact();</script>
+  </div>
+  <div class="footer">© <span id="y"></span> Enucuz.az • <span class="small" id="legal"></span></div>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    fetch('data/config.json').then(r=>r.json()).then(cfg=>{
+      document.title = (document.title||'') + ' — ' + cfg.site_name;
+      const l = document.getElementById('legal'); if(l) l.textContent = cfg.legal_notice || '';
+    });
+  </script>
+</body>
+</html>

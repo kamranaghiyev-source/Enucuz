@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Главная</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="nav">
+    <div class="row">
+      <div class="brand">
+        <div class="logo"></div>
+        <div><b>Enucuz.az</b><div class="small">Сравнение цен • товары • услуги</div></div>
+      </div>
+      <div class="menu"><a href="index.html" style="background:rgba(255,255,255,.08)">Главная</a>
+<a href="products.html">Товары</a>
+<a href="services.html">Услуги</a>
+<a href="compare.html">Сравнение</a>
+<a href="contact.html">Оплата/Контакты</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="hero">
+  <h1>Сравнивай цены и заказывай выгодно в Азербайджане</h1>
+  <p>Каталог популярных товаров + проверенные услуги мастеров. Нажми «Купить / Заказать» — и мы подберём лучший вариант или выставим ссылку на оплату.</p>
+  <div class="kpis">
+    <div class="kpi"><b>Товары</b><span>электроника • техника • товары из Турции</span></div>
+    <div class="kpi"><b>Услуги</b><span>установка • ремонт • дом</span></div>
+    <div class="kpi"><b>Оплата</b><span>по ссылке или WhatsApp</span></div>
+  </div>
+  <div class="toolbar">
+    <a class="btn primary" href="products.html">Каталог товаров</a>
+    <a class="btn primary" href="services.html">Каталог услуг</a>
+    <a class="btn" href="compare.html">Сравнение цен</a>
+  </div>
+</div>
+
+<div class="grid" style="margin-top:14px">
+  <div class="card half">
+    <h2 style="margin:0 0 8px">Популярные товары</h2>
+    <div id="homeProducts" class="list"></div>
+  </div>
+
+  <div class="card half">
+    <h2 style="margin:0 0 8px">Популярные услуги</h2>
+    <div id="homeServices" class="list"></div>
+  </div>
+
+  <div class="card">
+    <div class="notice">
+      <b>Готово к запуску:</b> сейчас кнопки ведут в WhatsApp (или на платёжные ссылки из <b>data/config.json</b>).
+    </div>
+  </div>
+</div>
+
+<script>
+(async ()=>{
+  const cfg = await (await fetch('data/config.json')).json();
+  const p = await (await fetch('data/products.json')).json();
+  const s = await (await fetch('data/services.json')).json();
+  const pick = (arr)=>arr.slice(0,4);
+  const render = (arr, id, msg)=>{
+    const mount = document.getElementById(id);
+    mount.innerHTML = pick(arr).map(it=>{
+      const badges = (it.badges||[]).slice(0,3).map(b=>`<span class="badge">${b}</span>`).join('');
+      const text = `${msg}\n\n${it.title}\nЦена: ${(it.price_from ?? it.price) ?? ''} AZN`;
+      const href = it.payment_link ? it.payment_link : `https://wa.me/${cfg.whatsapp.replace(/[^\d]/g,'')}?text=${encodeURIComponent(text)}`;
+      return `<div class="item">
+        <h3>${it.title}</h3>
+        <div class="badges">${badges}</div>
+        <div class="price"><b>${(it.price_from ?? it.price) ?? "—"} AZN</b><span>${it.price_note||""}</span></div>
+        <div class="actions">
+          <a class="btn primary" target="_blank" rel="noopener" href="${href}">Купить / Заказать</a>
+          <a class="btn" href="compare.html">Сравнить</a>
+        </div>
+      </div>`;
+    }).join('');
+  };
+  render(p, 'homeProducts', 'Здравствуйте! Хочу купить/заказать товар.');
+  render(s, 'homeServices', 'Здравствуйте! Хочу заказать услугу.');
+})();
+</script>
+  </div>
+  <div class="footer">© <span id="y"></span> Enucuz.az • <span class="small" id="legal"></span></div>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    fetch('data/config.json').then(r=>r.json()).then(cfg=>{
+      document.title = (document.title||'') + ' — ' + cfg.site_name;
+      const l = document.getElementById('legal'); if(l) l.textContent = cfg.legal_notice || '';
+    });
+  </script>
+</body>
+</html>
